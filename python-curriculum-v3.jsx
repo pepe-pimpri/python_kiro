@@ -1646,6 +1646,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState("concepts");
   const [filter, setFilter] = useState("ALL");
   const [search, setSearch] = useState("");
+  const [customConcept, setCustomConcept] = useState("");
   const [modal, setModal] = useState(null); // { concept, topicTitle, color }
 
   const levels = ["ALL", ...curriculum.map(s => s.level)];
@@ -1729,10 +1730,30 @@ export default function App() {
           <input
             value={search}
             onChange={e => setSearch(e.target.value)}
-            placeholder="Search topics, concepts..."
+            placeholder="Search curriculum..."
             style={{
               width: "100%", padding: "7px 12px 7px 28px",
               background: "#0f1017", border: "1px solid #1e2030",
+              borderRadius: "4px", color: "#d4d4d8", fontSize: "12px",
+              fontFamily: "inherit", outline: "none", boxSizing: "border-box",
+            }}
+          />
+        </div>
+        <div style={{ position: "relative", flex: "1", minWidth: "200px", maxWidth: "300px" }}>
+          <span style={{ position: "absolute", left: "10px", top: "50%", transform: "translateY(-50%)", color: "#4ade80", fontSize: "13px" }}>✨</span>
+          <input
+            value={customConcept}
+            onChange={e => setCustomConcept(e.target.value)}
+            onKeyDown={e => {
+              if (e.key === 'Enter' && customConcept.trim() !== '') {
+                setModal({ concept: customConcept, topicTitle: "Custom Inquiry", color: "#4ade80" });
+                setCustomConcept("");
+              }
+            }}
+            placeholder="Ask AI any topic (press Enter)..."
+            style={{
+              width: "100%", padding: "7px 12px 7px 28px",
+              background: "#0f1017", border: "1px solid rgba(74,222,128,0.3)",
               borderRadius: "4px", color: "#d4d4d8", fontSize: "12px",
               fontFamily: "inherit", outline: "none", boxSizing: "border-box",
             }}
